@@ -161,10 +161,10 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			
 					// Build the command...
 					$xbCommand = 'ssh -o StrictHostKeyChecking=no -p '.$hostInfo['ssh_port'].' '.$sbInfo['backup_user'].'@'.$hostInfo['hostname'].
-								" 'cd $tempDir ; innobackupex --ibbackup=".$xbBinary." --stream=xbstream ".$sbInfo['datadir_path']." --user=".$sbInfo['mysql_user'].
+								" 'cd $tempDir ; xtrabackup --backup --ibbackup=".$xbBinary." --stream=xbstream --target-dir=".$sbInfo['datadir_path']." --user=".$sbInfo['mysql_user'].
 								" --password=".$sbInfo['mysql_password']." --slave-info --safe-slave-backup --tmpdir=".$tempDir;
 			
-					// If table locking for the backup is disabled add the --no-lock option to innobackupex
+					// If table locking for the backup is disabled add the --no-lock option to xtrabackup
 					if($sbInfo['lock_tables'] == 'N') {
 						$xbCommand .= " --no-lock ";
 					}
@@ -172,7 +172,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 					$ncClient = $ncBuilder->getClientCommand($config['SYSTEM']['xbm_hostname'], $rbInfo['port']);
 					$xbCommand .= " | ".$ncClient.
-								' ; exit ${PIPESTATUS[1]}\''; // Makes sure the command run on the remote machine returns the exit status of innobackupex, which is what SSH will return
+								' ; exit ${PIPESTATUS[1]}\''; // Makes sure the command run on the remote machine returns the exit status of xtrabackup, which is what SSH will return
 			
 					// Set up how we'll interact with the IO file handlers of the process
 					$xbDescriptors = Array(
@@ -201,7 +201,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			
 					// Check that we launched OK.
 					if( !is_resource($xbProc) ) {
-						throw new Exception('genericBackupTaker->takeFullBackupSnapshot: '."Error: Unable to use ssh to start innobackupex with: $xbCommand .");
+						throw new Exception('genericBackupTaker->takeFullBackupSnapshot: '."Error: Unable to use ssh to start xtrabackup with: $xbCommand .");
 					}
 			
 					// Check the status of the backup every second...
