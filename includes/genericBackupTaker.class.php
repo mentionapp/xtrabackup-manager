@@ -161,7 +161,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			
 					// Build the command...
 					$xbCommand = 'ssh -o StrictHostKeyChecking=no -p '.$hostInfo['ssh_port'].' '.$sbInfo['backup_user'].'@'.$hostInfo['hostname'].
-								" 'cd $tempDir ; xtrabackup --backup --ibbackup=".$xbBinary." --stream=xbstream --target-dir=".$sbInfo['datadir_path']." --user=".$sbInfo['mysql_user'].
+								" 'cd $tempDir ; xtrabackup --backup --stream=xbstream --target-dir=".$sbInfo['datadir_path']." --user=".$sbInfo['mysql_user'].
 								" --password=".$sbInfo['mysql_password']." --slave-info --safe-slave-backup --tmpdir=".$tempDir;
 			
 					// If table locking for the backup is disabled add the --no-lock option to xtrabackup
