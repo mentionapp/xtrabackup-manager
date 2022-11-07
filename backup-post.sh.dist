@@ -13,6 +13,6 @@ fi
 
 snapshot_path=$(php $xbm_checker_dir/check-backup.php "$xbm_hostname" "$xbm_backupname" --get-snapshot-path)
 snapshot_id=$(basename $snapshot_path)
-nohup aws --profile "scaleway_backup_push" --endpoint-url https://s3.fr-par.scw.cloud s3 cp $snapshot_path s3://db-prod-backup/$xbm_backupname/$snapshot_id/ --recursive --storage-class GLACIER > /dev/null 2>&1 &
+nohup /usr/local/bin/aws --profile "scaleway_backup_push" --endpoint-url https://s3.fr-par.scw.cloud s3 cp $snapshot_path s3://db-prod-backup/$xbm_backupname/$snapshot_id/ --recursive --storage-class GLACIER --no-progress 2>&1 | logger -txtrabackup-upload &
 
 php $xbm_checker_dir/check-backup-unattended.php "$xbm_hostname" "$xbm_backupname" 2>&1 | logger -txtrabackup-checker
