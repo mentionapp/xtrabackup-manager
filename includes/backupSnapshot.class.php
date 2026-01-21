@@ -23,7 +23,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class backupSnapshot {
 
 
-		public function__construct($id = false) {
+		public function __construct($id = false) {
 
 			if( ($id !== false) && !is_numeric($id)) {
 				throw new Exception('backupSnapshot->__construct: '."Error: Expected a numeric id and did not get one.");
@@ -33,12 +33,12 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$this->scheduledBackup = NULL;
 		}
 
-		public functionsetLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 
-		public functioninit($scheduledBackup, $type, $creation_method, $snapshotGroup, $parentId = false) {
+		public function init($scheduledBackup, $type, $creation_method, $snapshotGroup, $parentId = false) {
 
 			global $config;
 
@@ -91,7 +91,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Return the scheduledBackup parent object for this snapshot.
-		public functiongetScheduledBackup() {
+		public function getScheduledBackup() {
 
 			if(!is_object($this->scheduledBackup) ) {
 
@@ -110,7 +110,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Check to see if the storage volume exists and returns a path for the snapshot.
-		public functiongetPath() {
+		public function getPath() {
 
 
 			$scheduledBackup = $this->getScheduledBackup();
@@ -139,7 +139,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 
-		public functiongetInfo() {
+		public function getInfo() {
 
 			global $config;
 
@@ -166,7 +166,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 
-		public functiongetSnapshotGroup() {
+		public function getSnapshotGroup() {
 
 			if(!is_numeric($this->id)) {
 				throw new Exception('backupSnapshot->getSnapshotGroup: '."Error: The ID for this object is not an integer.");
@@ -181,7 +181,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Change the status of the backup snapshot
 		// Fail if the row already has this state and nothing is changed..
-		public functionsetStatus($status) {
+		public function setStatus($status) {
 			
 			if(!is_numeric($this->id)) {
 				throw new Exception('backupSnapshot->setStatus: '."Error: The ID for this object is not an integer.");
@@ -212,7 +212,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Set the snapshot time of the backup snapshot - uses NOW() if unset.
-		public functionsetSnapshotTime($snapshotTime = false) {
+		public function setSnapshotTime($snapshotTime = false) {
 
 			if(!is_numeric($this->id)) {
 				throw new Exception('backupSnapshot->setSnapshotTime: '."Error: The ID for this object is not an integer.");
@@ -242,7 +242,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// delete this snapshot - removes all files as well as marking it as "DELETED".
-		public functiondelete() {
+		public function delete() {
 
 			$this->setStatus('DELETING');
 			$this->deleteFiles();
@@ -254,7 +254,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Completely destroy this snapshot, files and database entry
-		public functiondestroy() {
+		public function destroy() {
 
 			$this->delete();
 
@@ -276,7 +276,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Completely removes all files from the backup snapshot directory and the directory itself
-		public functiondeleteFiles() {
+		public function deleteFiles() {
 
 			// Get the path
 			$path = $this->getPath();
@@ -298,7 +298,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get the log sequence number position for this backup snapshot
-		public functiongetLsn() {
+		public function getLsn() {
 
 			// Read the to_lsn value from the xtrabackup_checkpoints file in the backup dir
 
@@ -325,7 +325,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Reassign any snapshot(s) whose parent snapshot is this snapshot to another snapshot - used when merging snapshots
-		public functionassignChildrenNewParent($parentId) {
+		public function assignChildrenNewParent($parentId) {
 
 			global $config;
 
@@ -355,7 +355,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get the child backupSnapshot of this one
-		public functiongetChild() {
+		public function getChild() {
 
 			global $config;
 

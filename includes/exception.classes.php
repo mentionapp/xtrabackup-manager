@@ -40,7 +40,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// Exception that occurs when merging a delta backup into a full directory
 	class MergeException extends Exception {
 
-		public function __construct($msg, $errorMsg = "", backupSnapshot $failedSnapshot=NULL) {
+		public function __construct($msg, $errorMsg = "", ?backupSnapshot $failedSnapshot = null) {
 
 			$this->errorMsg = $errorMsg;
 			$this->failedSnapshot = $failedSnapshot;

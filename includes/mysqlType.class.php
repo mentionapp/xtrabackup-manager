@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class mysqlType {
 
 
-		public function__construct($id) {
+		public function __construct($id) {
 			if(!is_numeric($id)) {
 				throw new Exception('mysqlType->getInfo: '."Error: The ID for this object is not an integer.");
 			}
@@ -32,11 +32,11 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$this->log = false;
 		}
 
-		public functionsetLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
-		public functiongetInfo() {
+		public function getInfo() {
 
 			global $config;
 

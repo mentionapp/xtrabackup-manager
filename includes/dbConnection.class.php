@@ -100,7 +100,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Construct
-		public function query($sql) {
+		public function query(string $sql, int $result_mode = MYSQLI_STORE_RESULT): mysqli_result|bool {
 
 			if( ( $this->log !== false ) ) {
 				$backtrace = debug_backtrace();
@@ -112,7 +112,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 				$timer = new Timer();
 			}
 
-			$res = parent::query($sql);
+			$res = parent::query($sql, $result_mode);
 
 			if( ( $this->log !== false ) ) {
 				$elapsed = $timer->elapsed();

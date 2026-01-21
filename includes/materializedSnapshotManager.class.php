@@ -24,22 +24,22 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// This class is responsible for managing the materialized snapshots for a given scheduledBackup
 	class materializedSnapshotManager {
 
-		public function__construct() {
+		public function __construct() {
 			$this->infolog = false;
 			$this->log = false;
 		}
 
-		public functionsetInfoLogStream($log) {
+		public function setInfoLogStream($log) {
 			$this->infolog = $log;
 		}
 
-		public functionsetLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 
 		// For the given scheduledBackup, update the materialized backup to the latest
-		public functionmaterializeLatest($scheduledBackup = false) {
+		public function materializeLatest($scheduledBackup = false) {
 
 			global $config;
 

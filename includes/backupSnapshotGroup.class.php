@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class backupSnapshotGroup {
 
 
-		public function__construct($scheduledBackupId = false, $snapshotGroupNum = false) {
+		public function __construct($scheduledBackupId = false, $snapshotGroupNum = false) {
 
 			$this->scheduledBackupId = $scheduledBackupId;
 			$this->snapshotGroupNum = $snapshotGroupNum;
@@ -35,12 +35,12 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		}
 
-		public functionsetLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Sanity check this object
-		public function__validate() {
+		public function __validate() {
 			if(!is_numeric($this->scheduledBackupId) ) {
 				throw new Exception('backupSnapshotGroup->__validate: '."Error: The Scheduled Backup ID for this object is not an integer.");
 			}
@@ -50,7 +50,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get the seed for this group if it has one
-		public functiongetSeed() {
+		public function getSeed() {
 
 			// Sanity check the object.
 			$this->__validate();
@@ -84,7 +84,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Return all the incremental snapshots for this snapshot group
-		public functiongetIncrementals() {
+		public function getIncrementals() {
 
 			// sanity check this object
 			$this->__validate();
@@ -114,13 +114,13 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get the snapshot group number
-		public functiongetNumber() {
+		public function getNumber() {
 			$this->__validate();
 			return $this->snapshotGroupNum;
 		}
 
 		// Get the most recently completed scheduled backup snapshot
-		public functiongetMostRecentCompletedBackupSnapshot() {
+		public function getMostRecentCompletedBackupSnapshot() {
 
 			$this->__validate();
 
@@ -153,7 +153,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Get an array of snapshots that belong to this group regardless of type
 		// ordered newest to oldest
-		public functiongetAllSnapshotsNewestToOldest() {
+		public function getAllSnapshotsNewestToOldest() {
 
 			$this->__validate();
 
@@ -183,7 +183,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Delete all of the snapshots for this group
-		public functiondeleteAllSnapshots() {
+		public function deleteAllSnapshots() {
 
 			$this->__validate();
 

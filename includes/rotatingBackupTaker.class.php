@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class rotatingBackupTaker {
 
 
-		public function__construct() {
+		public function __construct() {
 			$this->log = false;
 			$this->infolog = false;
 			$this->infologVerbose = true;
@@ -33,27 +33,27 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set the logStream for general / debug xbm output
-		public functionsetLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Set the logStream for informational output
-		public functionsetInfoLogStream($log) {
+		public function setInfoLogStream($log) {
 			$this->infolog = $log;
 		}
 
 		// Set whether or not the info log logStream should write to stdout
-		public functionsetInfoLogVerbose($bool) {
+		public function setInfoLogVerbose($bool) {
 			$this->infologVerbose = $bool;
 		}
 
 		// Set the time this backup was launched
-		public functionsetLaunchTime($launchTime) {
+		public function setLaunchTime($launchTime) {
 			$this->launchTime = $launchTime;
 		}
 
 		// Set the tickets that should be released once the runningBackup object entry for the job is fully initialized..
-		public functionsetTicketsToReleaseOnStart($ticketArray) {
+		public function setTicketsToReleaseOnStart($ticketArray) {
 			if( !is_array($ticketArray) ) {
 				throw new Exception('rotatingBackupTaker->setTicketsToReleaseOnStart: '."Error: Expected an array as a paramater, but did not get one.");
 			}
@@ -61,7 +61,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Validate the parameters for this backup strategy 
-		public functionvalidateParams($sbParams) {
+		public function validateParams($sbParams) {
 
 
 			//
@@ -152,7 +152,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// The main functin of this class - take the snapshot for a scheduled backup
-		public functiontakeScheduledBackupSnapshot ( backupJob $job ) {
+		public function takeScheduledBackupSnapshot ( backupJob $job ) {
 
 			global $config;
 
@@ -311,7 +311,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Check for COMPLETED backup snapshots under the scheduledBackup and perform any necessary merging/deletion
-		public functionapplyRetentionPolicy( backupJob $job ) {
+		public function applyRetentionPolicy( backupJob $job ) {
 
 			$scheduledBackup = $job->getScheduledBackup();
 
@@ -338,7 +338,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Handle any postProcessing
-		public functionpostProcess(backupJob $job) {
+		public function postProcess(backupJob $job) {
 
 			$scheduledBackup = $job->getScheduledBackup();
 			// Get Params

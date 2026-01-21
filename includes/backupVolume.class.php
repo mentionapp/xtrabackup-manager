@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class backupVolume {
 
 
-		public function__construct($id) {
+		public function __construct($id) {
 
 			if(!is_numeric($id) ) {
 				throw new Exception('backupVolume->__construct: '."Error: The ID for this object is not an integer.");
@@ -35,12 +35,12 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 
-		public functionsetLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Get the info for this backup volume
-		public functiongetInfo() {
+		public function getInfo() {
 
 			global $config;
 
@@ -67,7 +67,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set the param of this Backup Volume to value
-		public functionsetParam($param, $value) {
+		public function setParam($param, $value) {
 
 			if(!is_numeric($this->id)) {
 				throw new Exception('backupVolume->setParam: '."Error: The ID for this object is not an integer.");
@@ -145,7 +145,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 
-		public functiondelete() {
+		public function delete() {
 
 			// Validate this...
 			if(!is_numeric($this->id)) {
@@ -183,7 +183,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get the scheduled backups that are linked to this backup volume
-		public functiongetScheduledBackups() {
+		public function getScheduledBackups() {
 
 			// Validate this...
 			if(!is_numeric($this->id)) {
@@ -213,7 +213,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get a message to print the scheduled backups linked to this volume
-		public functiongetScheduledBackupDisplay() {
+		public function getScheduledBackupDisplay() {
 			// Validate this...
 			if(!is_numeric($this->id)) {
 				throw new Exception('backupVolume->getScheduledBackupDisplay: '."Error: The ID for this object is not an integer.");
