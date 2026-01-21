@@ -555,7 +555,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		public static function validateRotateMethod($param) {
 			$validRotationMethods = Array('DAY_OF_WEEK', 'AFTER_SNAPSHOT_COUNT');
 			if(!in_array($param, $validRotationMethods)) {
-				throw new InputException("Error: rotate_method must be defined as one of: ".implode($validRotationMethods, ','));
+				throw new InputException("Error: rotate_method must be defined as one of: ".implode(',', $validRotationMethods));
 			}
 		}
 
