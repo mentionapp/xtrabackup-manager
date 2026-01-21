@@ -25,12 +25,12 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class cliHandler {
 
 		// Set the logStream to write to
-		function setLogStream($log) {
+		public functionsetLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Print top level command help-text
-		function printBaseHelpText() {
+		public functionprintBaseHelpText() {
 
 			echo("Usage: xbm <context> <action> <args> ...\n\n");
 			echo("Contexts and actions may be one of the following:\n\n");
@@ -57,13 +57,13 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		}
 
-		function printHeader() {
+		public functionprintHeader() {
 			print("\n".XBM_RELEASE_VERSION."\n\n");
 		}
 
 		// Handles the arguments given on the command-line
 		// Accepts the $argv array 
-		function handleArguments($args) {
+		public functionhandleArguments($args) {
 
 			// If we arent given any parameters
 			if(!isSet($args[1])) {
@@ -147,7 +147,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Print out the help text for volumes context
-		function printVolumeHelpText($args) {
+		public functionprintVolumeHelpText($args) {
 
 			echo("Usage: xbm ".$args[1]." <action> <args> ...\n\n");
 			echo("Actions may be one of the following:\n\n");
@@ -167,7 +167,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Print out the help text for snpshots context
-		function printSnapshotHelpText($args) {
+		public functionprintSnapshotHelpText($args) {
 
 			echo("Usage: xbm ".$args[1]." <actions> <args> ...\n\n");
 			echo("Actions may be one of the following:\n\n");
@@ -184,7 +184,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Print out the help text for hosts context
-		function printHostHelpText($args) {
+		public functionprintHostHelpText($args) {
 
 			echo("Usage: xbm ".$args[1]." <actions> <args> ...\n\n");
 			echo("Actions may be one of the following:\n\n");
@@ -202,7 +202,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Print out the help text for backups context
-		function printBackupHelpText($args) {
+		public functionprintBackupHelpText($args) {
 
 			echo("Usage: xbm ".$args[1]." <actions> <args> ...\n\n");
 			echo("Actions may be one of the following:\n\n");
@@ -224,7 +224,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Handle actions for the snapshot context
-		function handleSnapshotActions($args) {
+		public functionhandleSnapshotActions($args) {
 
 			global $config;
 
@@ -485,7 +485,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Handle restoring of a snapshot
-		function handleRestore($snapshot, $path) {
+		public functionhandleRestore($snapshot, $path) {
 
 			global $config;
 
@@ -560,7 +560,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Handle actions for the backup context
-		function handleBackupActions($args) {
+		public functionhandleBackupActions($args) {
 
 			global $config;
 
@@ -980,7 +980,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Handle actions relating to hosts context
 		// Accepts an argv array from the command line
-		function handleHostActions($args) {
+		public functionhandleHostActions($args) {
 
 			// If we arent given any more parameters
 			if(!isSet($args[2]) ) {
@@ -1113,7 +1113,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Handle actions relating to volumes
 		// Accepts an argv array from the command line
-		function handleVolumeActions($args) {
+		public functionhandleVolumeActions($args) {
 
 			// If we arent given any more parameters
 			if(!isSet($args[2]) ) {
@@ -1240,7 +1240,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Handler for upgrading the xbm database
-		function handleUpgradeAction() {
+		public functionhandleUpgradeAction() {
 
 			$schemaUpgrader = new schemaUpgrader();
 			$schemaUpgrader->setLogStream($this->log);
@@ -1258,7 +1258,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Handler for printing status information about running backup tasks
-		function handleStatusAction() {
+		public functionhandleStatusAction() {
 
 			$backupJobGetter = new backupJobGetter();
 			$backupJobGetter->setLogStream($this->log);
@@ -1302,7 +1302,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Handler for killing backup jobs
-		function handleKillAction($args) {
+		public functionhandleKillAction($args) {
 
 			if(!isSet($args[2]) || !is_numeric($args[2]) ) {
 				echo("Error: Expected a numeric Job ID as a parameter but did not get one.\n\n");

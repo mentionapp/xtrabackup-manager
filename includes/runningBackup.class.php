@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class runningBackup {
 
 
-		function __construct($id = false) {
+		public function__construct($id = false) {
 			if( ($id !== false) && !is_numeric($id) ) {
 				throw new Exception('runningBackup->__construct: '."Error: Expected an integer id for this object and did not get one.");
 			}
@@ -32,16 +32,16 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$this->log = false;
 		}
 
-		function setLogStream($log) {
+		public functionsetLogStream($log) {
 			$this->log = $log;
 		}
 
-		function setInfoLogStream($log) {
+		public functionsetInfoLogStream($log) {
 			$this->infolog = $log;
 		}
 
 		// Atempt to initialize a running backup
-		function init($host, $scheduledBackup) {
+		public functioninit($host, $scheduledBackup) {
 
 			// create a port finder object
 			// portFound = false
@@ -119,7 +119,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 
-		function getInfo() {
+		public functiongetInfo() {
 
 			global $config;
 
@@ -149,7 +149,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Clean up the running backup entry
-		function finish() {
+		public functionfinish() {
 
 			global $config;
 
@@ -186,7 +186,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Set the staging tmpdir in the running backup object
-		function getStagingTmpdir() {
+		public functiongetStagingTmpdir() {
 
 			global $config;
 

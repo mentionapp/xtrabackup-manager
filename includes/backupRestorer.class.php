@@ -25,20 +25,20 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class backupRestorer {
 
 
-		function __construct() {
+		public function__construct() {
 			$this->log = false;
 			$this->infolog = false;
 		}
 
-		function setLogStream($log) {
+		public functionsetLogStream($log) {
 			$this->log = $log;
 		}
 
-		function setInfoLogStream($log) {
+		public functionsetInfoLogStream($log) {
 			$this->infolog = $log;
 		}
 
-		function validate($backupSnapshot) {
+		public functionvalidate($backupSnapshot) {
 
 			// Check we got an object
 			if(!is_object($backupSnapshot)) {
@@ -55,7 +55,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Restore $backupSnapshot or $materializedBackup to local path $path
-		function restoreLocal($backupSnapshot, $path) {
+		public functionrestoreLocal($backupSnapshot, $path) {
 
 			$this->validate($backupSnapshot);
 
@@ -176,7 +176,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 	
-		function restoreRemote($backupSnapshot, $remoteExpression) {
+		public functionrestoreRemote($backupSnapshot, $remoteExpression) {
 			$this->validate($backupSnapshot);
 			return false;
 		}

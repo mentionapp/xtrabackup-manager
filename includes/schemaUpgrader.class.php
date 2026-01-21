@@ -24,15 +24,15 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// Used to upgrade the database schema from one version to another
 	class schemaUpgrader {
 
-		function __construct() {
+		public function__construct() {
 			$this->log = false;
 		}
 
-		function setLogStream($log) {
+		public functionsetLogStream($log) {
 			$this->log = $log;
 		}
 
-		function upgrade() {
+		public functionupgrade() {
 
 			// Look for running backups without checking schema version
 			$runningBackupGetter = new runningBackupGetter();

@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class materializedSnapshot {
 
 
-		function __construct($mbId = false) {
+		public function__construct($mbId = false) {
 
 			$this->id = $mbId;
 			$this->log = false;
@@ -32,23 +32,23 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		}
 
-		function setLogStream($log) {
+		public functionsetLogStream($log) {
 			$this->log = $log;
 		}
 
-		function setInfoLogStream($log) {
+		public functionsetInfoLogStream($log) {
 			$this->infolog = $log;
 		}
 
 		// Sanity check this object
-		function __validate() {
+		public function__validate() {
 			if(!is_numeric($this->id) ) {
 				throw new Exception('materializedSnapshot->__validate: '."Error: The ID for this object is not an integer.");
 			}
 		}
 
 		// Initialize a new materializedSnapshot object
-		function init($scheduledBackup, $backupSnapshot) {
+		public functioninit($scheduledBackup, $backupSnapshot) {
 
 			global $config;
 
@@ -80,7 +80,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Link this materialized snapshots path direct to an existing backupSnapshot
-		function symlinkToSnapshot($snapshot) {
+		public functionsymlinkToSnapshot($snapshot) {
 
 			$snapshotPath = $snapshot->getPath();
 			$materialPath = $this->getPath();
@@ -98,7 +98,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Return all the info/details for this t
-		function getInfo() {
+		public functiongetInfo() {
 
 			// sanity check this object
 			$this->__validate();
@@ -133,7 +133,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get the scheduledBackup that this materialized backup belongs to
-		function getScheduledBackup() {
+		public functiongetScheduledBackup() {
 
 			$this->__validate();
 
@@ -149,7 +149,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// get the backup snapshot that this materialized backup is of
-		function getBackupSnapshot() {
+		public functiongetBackupSnapshot() {
 
 			$this->__validate();
 			$info = $this->getInfo();
@@ -164,7 +164,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Get the path for this materialized backup
 		// Just a folder in the hosts backup dir with "m<id>" (giving separate namespace to regular backup stuff)
-		function getPath() {
+		public functiongetPath() {
 
 			$scheduledBackup = $this->getScheduledBackup();
 
@@ -193,7 +193,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Change the status of the backup snapshot
 		// Fail if the row already has this state and nothing is changed..
-		function setStatus($status) {
+		public functionsetStatus($status) {
 
 			$this->__validate();
 
@@ -220,7 +220,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Delete this materializedSnapshot's file(s) / link(s) on the filesystem
 		// Remove its row from the Db
-		function destroy() {
+		public functiondestroy() {
 
 			global $config;
 
@@ -248,7 +248,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Delete the files/dir for this materializedSnapshot on the filesystem
-		function deleteFiles() {
+		public functiondeleteFiles() {
 
 			// Get the path
 			$path = $this->getPath();

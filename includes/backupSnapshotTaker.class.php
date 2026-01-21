@@ -24,30 +24,30 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class backupSnapshotTaker {
 
 
-		function __construct() {
+		public function__construct() {
 			$this->log = false;
 			$this->infolog = false;
 			$this->infologVerbose = true;
 		}
 
 		// Set the logStream for general / debug xbm output
-		function setLogStream($log) {
+		public functionsetLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Set the logStream for informational output
-		function setInfoLogStream($log) {
+		public functionsetInfoLogStream($log) {
 			$this->infolog = $log;
 		}
 
 		// Set whether or not the info log logStream should write to stdout
-		function setInfoLogVerbose($bool) {
+		public functionsetInfoLogVerbose($bool) {
 			$this->infologVerbose = $bool;
 		}
 
 		// The main functin of this class - take the snapshot for a scheduled backup based on the backup strategy
 		// Takes a scheduledBackup object as a param
-		function takeScheduledBackupSnapshot ( scheduledBackup $scheduledBackup  ) {
+		public functiontakeScheduledBackupSnapshot ( scheduledBackup $scheduledBackup  ) {
 
 			global $config;
 

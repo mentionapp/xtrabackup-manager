@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class scheduledBackup {
 
 
-		function __construct($id) {
+		public function__construct($id) {
 			if(!is_numeric($id)) {
 				throw new Exception('scheduledBackup->__construct'."Error: Expected a numeric ID for this object and did not get one.");
 			}
@@ -36,11 +36,11 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$this->runningBackups = Array();
 		}
 
-		function setLogStream($log) {
+		public functionsetLogStream($log) {
 			$this->log = $log;
 		}
 
-		function getInfo() {
+		public functiongetInfo() {
 
 			global $config;
 
@@ -71,7 +71,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Sets this->active to true or false based on logic.
-		function isActive() {
+		public functionisActive() {
 
 			$info = $this->getInfo();
 
@@ -103,7 +103,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get the host object that this scheduledBackup is for	
-		function getHost() {
+		public functiongetHost() {
 
 			$info = $this->getInfo();
 
@@ -115,7 +115,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get the backupStrategy object that this scheduledBackup is set to use
-		function getBackupStrategy() {
+		public functiongetBackupStrategy() {
 
 			$info = $this->getInfo();
 
@@ -129,7 +129,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get the volume object that this scheduledBackup is stored on
-		function getVolume() {
+		public functiongetVolume() {
 
 			$info = $this->getInfo();
 
@@ -143,7 +143,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Get the name of the command that should be used for xtrabackup
 		// based on the configured mysql_type of this scheduledBackup
-		function getXtraBackupBinary() {
+		public functiongetXtraBackupBinary() {
 
 			$info = $this->getInfo();
 
@@ -161,7 +161,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Return the valid seed of this scheduledBackup or false otherwise
 		// This should be replaced by use of snapshotGroup->getSeed()
-		function getSeed() {
+		public functiongetSeed() {
 
 			global $config;
 
@@ -194,7 +194,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Return the number of completed snapshots for this scheduledBackup
-		function getCompletedSnapshotCount() {
+		public functiongetCompletedSnapshotCount() {
 
 			global $config;
 
@@ -217,7 +217,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get an array of the snapshot groups for the scheduledBackup
-		function getSnapshotGroupsNewestToOldest() {
+		public functiongetSnapshotGroupsNewestToOldest() {
 
 			global $config;
 
@@ -252,7 +252,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Check to see if there is a running backup entry already for this scheduled backup
-		function isRunning() {
+		public functionisRunning() {
 
 			global $config;
 
@@ -278,7 +278,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get the most recently completed scheduled backup snapshot
-		function getMostRecentCompletedBackupSnapshot() {
+		public functiongetMostRecentCompletedBackupSnapshot() {
 
 			global $config;
 
@@ -310,7 +310,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get the most recently completed materialized snapshot
-		function getMostRecentCompletedMaterializedSnapshot() {
+		public functiongetMostRecentCompletedMaterializedSnapshot() {
 
 			global $config;
 
@@ -342,7 +342,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get an array list of the scheduledBackup parameters
-		function getParameters() {
+		public functiongetParameters() {
 
 			global $config;
 
@@ -641,7 +641,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set Param to value for the scheduledBackup
-		function setParam($param, $value) {
+		public functionsetParam($param, $value) {
 
 			// Validate this...
 			if(!is_numeric($this->id)) {
@@ -731,7 +731,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set the backup strategy parameter $param to value $value
-		function setBackupStrategyParam($param, $value) {
+		public functionsetBackupStrategyParam($param, $value) {
 
 			// Validate
 			if(!is_numeric($this->id)) {
@@ -809,7 +809,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Destroy this scheduled backup and anything attached to it.
-		function destroy() {
+		public functiondestroy() {
 
 			// Validate this...
 			if(!is_numeric($this->id)) {
@@ -873,7 +873,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		// * XtraBackup IOPs are 1MB each
 		// Thus a minimum value given of 1 will result in 3MB/s of IO
 		// When users tell XBM they want to throttle at X MB/s - we take into account this 2MB/s.
-		function getXtraBackupThrottleValue() {
+		public functiongetXtraBackupThrottleValue() {
 			
 			// Validate this...
 			if(!is_numeric($this->id)) {
@@ -902,7 +902,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Get the throttle setting for this backup in Mbps
 		// We store it in the database this way, so simply retrieving from getInfo is enough.
-		function getMbpsThrottleValue() {
+		public functiongetMbpsThrottleValue() {
 
 			// Validate this...
 			if(!is_numeric($this->id)) {

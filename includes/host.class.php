@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class host {
 
 
-		function __construct($id) {
+		public function__construct($id) {
 			if(!is_numeric($id) ) {
 				throw new Exception('host->__construct: '."Error: The ID for this object is not an integer.");
 			}
@@ -34,12 +34,12 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set the logStream to write out to
-		function setLogStream($log) {
+		public functionsetLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Get info about this host
-		function getInfo() {
+		public functiongetInfo() {
 
 			global $config;
 
@@ -68,7 +68,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get scheduled backups
-		function getScheduledBackups() {
+		public functiongetScheduledBackups() {
 
 			global $config;
 
@@ -94,7 +94,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Return true or false 
-		function isActive() {
+		public functionisActive() {
 
 			$info = $this->getInfo();
 
@@ -108,7 +108,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get the running backups for this host
-		function getRunningBackups() {
+		public functiongetRunningBackups() {
 
 			global $config;
 
@@ -176,7 +176,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Delete the host - if it has nothing attached to it
-		function delete() {
+		public functiondelete() {
 
 			// Validate this...
 			if(!is_numeric($this->id)) {
@@ -216,7 +216,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Get a displayed list of scheduled backups
 		// Get a message to print the scheduled backups linked to this volume
-		function getScheduledBackupDisplay() {
+		public functiongetScheduledBackupDisplay() {
 
 			// Validate this...
 			if(!is_numeric($this->id)) {
@@ -270,7 +270,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set Param to value for the hose
-		function setParam($param, $value) {
+		public functionsetParam($param, $value) {
 
 			// Validate this...
 			if(!is_numeric($this->id)) {
