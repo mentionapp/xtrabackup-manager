@@ -40,7 +40,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 			// Get the runningbackups - this getter automatically removes stale entries, so it should only return truly running pids...
 			$runningBackups = $runningBackupGetter->getAll();
-			$backupCount = sizeOf($runningBackups);
+			$backupCount = count($runningBackups);
 
 			// If we find running backups, abort with error
 			if($backupCount > 0 ) {

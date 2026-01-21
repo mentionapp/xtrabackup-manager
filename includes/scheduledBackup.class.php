@@ -241,7 +241,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			}
 
 			// If there are no groups in the DB, manually inject the initial group number 1...
-			if(sizeOf($groups) == 0 ) {
+			if(count($groups) == 0 ) {
 				$groups[] = new backupSnapshotGroup($this->id, 1);
 			}
 
@@ -266,9 +266,9 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 			$this->runningBackups = $backupGetter->getByScheduledBackup($this);
 	
-			if( sizeOf($this->runningBackups) == 0 ) {
+			if( count($this->runningBackups) == 0 ) {
 				return false;
-			} elseif( sizeOf($this->runningBackups) > 0 ) {
+			} elseif( count($this->runningBackups) > 0 ) {
 				return true;
 			}
 
@@ -835,7 +835,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 			$runningBackups = $runningBackupGetter->getByScheduledBackup($this);
 
-			if(sizeOf($runningBackups) > 0 ) {
+			if(count($runningBackups) > 0 ) {
 				throw new ProcessingException("Error: Cannot remove the Scheduled Backup Task as it is currently running.");
 			}
 

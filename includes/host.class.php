@@ -186,7 +186,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$backups = $this->getScheduledBackups();
 
 			// If nothing linked to this volume, just delete it
-			if(sizeOf($backups) == 0) {
+			if(count($backups) == 0) {
 
 				
 				$conn = dbConnection::getInstance($this->log);
@@ -285,7 +285,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 				case 'hostname':
 					self::validateHostname($value);
 					$backups = $this->getScheduledBackups();
-					if(sizeOf($backups) > 0) {
+					if(count($backups) > 0) {
 						// We have backups linked to this volume
 						// Collect and print the information ...
 

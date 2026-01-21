@@ -90,7 +90,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 					// Validate input
 					self::validatePath($value);
 					$backups = $this->getScheduledBackups();
-					if(sizeOf($backups) > 0 ) {
+					if(count($backups) > 0 ) {
 						$info = $this->getInfo();
 						$errMsg = 'Error: Unable to edit the path of Backup Volume with name: '.$info['name']."\n\n".$this->getScheduledBackupDisplay();
 						throw new ProcessingException($errMsg);
@@ -155,7 +155,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$backups = $this->getScheduledBackups();
 
 			// If nothing linked to this volume, just delete it
-			if(sizeOf($backups) == 0) {
+			if(count($backups) == 0) {
 
 				
 				$conn = dbConnection::getInstance($this->log);

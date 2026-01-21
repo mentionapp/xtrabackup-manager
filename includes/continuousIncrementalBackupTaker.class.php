@@ -105,7 +105,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$sbGroups = $scheduledBackup->getSnapshotGroupsNewestToOldest();
 
 			// There should only be one group...
-			if(sizeOf($sbGroups) > 1) {
+			if(count($sbGroups) > 1) {
 				throw new Exception('continuousIncrementalBackupTaker->takeScheduledBackupSnapshot: '."Error: Found more than one snapshot group for a backup using continuous incremental strategy.");
 			}
 

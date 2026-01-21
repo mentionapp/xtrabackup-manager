@@ -50,7 +50,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 			// Find the latest backup snapshot for the scheduledBackup
 			$snapshotGroups = $scheduledBackup->getSnapshotGroupsNewestToOldest();
-			if(sizeOf($snapshotGroups) == 0 ) {
+			if(count($snapshotGroups) == 0 ) {
 				throw new Exception('materializedSnapshotManager->materializeLatest: '."Error: Expected to find at least one snapshot group for the scheduledBackup, but got none.");
 			}
 

@@ -106,7 +106,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$sbGroups = $scheduledBackup->getSnapshotGroupsNewestToOldest();
 
 			// If there is one group and no backup yet, take a full backup for group 0
-			if(sizeOf($sbGroups) == 1 && $sbGroups[0]->getSeed() === false  ) {
+			if(count($sbGroups) == 1 && $sbGroups[0]->getSeed() === false  ) {
 				$backupTaker->takeFullBackupSnapshot($job, $sbGroups[0]);
 			} else {
 
@@ -141,7 +141,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$sbGroups = array_reverse($scheduledBackup->getSnapshotGroupsNewestToOldest());
 
 			// While we have too many - destroy the oldest snapshot
-			while(sizeOf($sbGroups) > $params['max_snapshots']) {
+			while(count($sbGroups) > $params['max_snapshots']) {
 				$this->infolog->write('There are more backups than the allowed maximum of '.$params['max_snapshots'].', removing the oldest backup...', XBM_LOG_INFO);
 				$snapshot = $sbGroups[0]->getSeed();
 				$snapshot->destroy();

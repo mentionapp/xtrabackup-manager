@@ -254,7 +254,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 						$scheduledBackups = $host->getScheduledBackups();
 
 						// If we dont find scheduled backups - throw exception
-						if(sizeOf($scheduledBackups) == 0 ) {
+						if(count($scheduledBackups) == 0 ) {
 							throw new ProcessingException("Error: Could not find any backups for host: $hostname");
 						}
 
@@ -327,7 +327,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 								echo("	  ID: ".$snapInfo['backup_snapshot_id']."  Type: ".$snapInfo['type']."  Snapshot Time: ".$snapInfo['snapshot_time']."  Creation Method: ".$snapInfo['creation_method']."\n");
 							}
 
-							if(sizeOf($snapshots) == 0) {
+							if(count($snapshots) == 0) {
 								echo("	  None.\n");
 							}
 
@@ -358,12 +358,12 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 						$scheduledBackups = $host->getScheduledBackups();
 
 						// If we dont find scheduled backups - throw exception
-						if(sizeOf($scheduledBackups) == 0 ) {
+						if(count($scheduledBackups) == 0 ) {
 							throw new ProcessingException("Error: Could not find any backups for host: $hostname");
 						}
 
 						// If we find more than 1 scheduled backup - throw exception
-						if(sizeOf($scheduledBackups) > 1 ) {
+						if(count($scheduledBackups) > 1 ) {
 							throw new ProcessingException("Error: Found multiple Backup Tasks for host: $hostname - Please specify which backup name to restore the latest snapshot for.");
 						}
 
@@ -651,7 +651,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 							$scheduledBackups = $host->getScheduledBackups();
 							$hostInfo = $host->getInfo();
 							echo("\n\tHostname: ".$hostInfo['hostname']."\n\n");
-							if(sizeOf($scheduledBackups) > 0 ) {
+							if(count($scheduledBackups) > 0 ) {
 								foreach($scheduledBackups as $scheduledBackup) {
 									$sbInfo = $scheduledBackup->getInfo();
 									echo("\t  Name: ".$sbInfo['name']."  Active: ".$sbInfo['active']."  Cron_Expression: ".$sbInfo['cron_expression']."\n");
@@ -685,14 +685,14 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 						$scheduledBackups = $host->getScheduledBackups();
 
-						if(sizeOf($scheduledBackups) == 0 ) {
+						if(count($scheduledBackups) == 0 ) {
 							throw new ProcessingException("Error: Could not find any backups for host: $hostname");
 						}
 
 						// If we have just 1 scheduledBackup, then feed it to
-						if(sizeOf($scheduledBackups) == 1 ) {
+						if(count($scheduledBackups) == 1 ) {
 							$scheduledBackup = $scheduledBackups[0];
-						} elseif( sizeOf($scheduledBackups) > 1 ) {
+						} elseif( count($scheduledBackups) > 1 ) {
 							throw new ProcessingException("Error: Found more than one Scheduled Backup for host: $hostname -- Please specify a Scheduled Backup name.");
 						}
 
@@ -824,7 +824,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 							$snapshots = array_merge($snapshots, $group->getAllSnapshotsNewestToOldest() ) ;
 						}
 
-						$snapCount = sizeOf($snapshots);
+						$snapCount = count($snapshots);
 
 						$performDel = false;
 
@@ -1034,7 +1034,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 						echo("Active: ".$hostInfo['active']."  Staging_path: ".$hostInfo['staging_path']."  SSH Port: ".$hostInfo['ssh_port']."\n\n");
 					}
 
-					if(sizeOf($hosts) == 0 ) {
+					if(count($hosts) == 0 ) {
 						echo("	No hosts configured.\n\n");
 					}
 
@@ -1288,7 +1288,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 									'PID' => $info['pid']
 								);
 			}
-			if(sizeOf($backupRows) > 0) {
+			if(count($backupRows) > 0) {
 				$textTable = new ArrayToTextTable($backupRows);
 				$textTable->showHeaders(true);
 				$tableOutput = $textTable->render(true);
