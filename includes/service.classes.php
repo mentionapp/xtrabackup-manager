@@ -646,7 +646,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$cron = $this->buildCron();
 
 			$tmpName = tempnam($config['SYSTEM']['tmpdir'], 'xbmcron');
-			$fp = @fopen($tmpName, "w");
+			$fp = fopen($tmpName, "w");
 
 			// Validate we got a resource OK
 			if(!is_resource($fp)) {

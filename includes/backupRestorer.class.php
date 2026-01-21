@@ -70,7 +70,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 					throw new Exception('backupRestorer->restoreLocal: '."Error: Attempted to create directory for restore, but failed -- $path");
 				}
 				// Set permissions to be rwx owner and rx group.
-				if( ! @chmod($path, 0750) ) {
+				if( ! chmod($path, 0750) ) {
 					throw new Exception('backupRestorer->restoreLocal: '."Error: Attempted to change permissions for newly created restore path, but failed -- $path");
 				}
 			} else if(!is_dir($path)) {

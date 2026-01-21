@@ -78,7 +78,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 				return true;
 			}
 
-			if( ! ($this->fp = @fopen($this->filename, 'a') ) ) {
+			if( ! ($this->fp = fopen($this->filename, 'a') ) ) {
 				// Could not open logStream for writing.
 				throw new Exception('logStream->open: '."Error: Failed to open log file - $this->filename");
 			} else {
