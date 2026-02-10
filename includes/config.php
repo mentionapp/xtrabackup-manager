@@ -88,4 +88,21 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// What should the reply to address for alert emails be
 	$config['ALERTS']['replyto'] = 'xbmdev-noreply@yourdomain.com';
 
+
+	// Slack notifications
+
+	// Send Slack notifications when failures are caught? true/false
+	$config['SLACK']['enabled'] = false;
+
+	// Slack webhook URL - Get this from your Slack workspace
+	// Example: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXX
+	//$config['SLACK']['webhook_url'] = '';
+
+	// Optional: Override the default channel for notifications
+	// Leave empty to use the webhook's default channel
+	$config['SLACK']['channel'] = '';
+
+	// Number of recent log lines to include in notifications (default: 25)
+	$config['SLACK']['log_lines_count'] = 25;
+
 ?>
