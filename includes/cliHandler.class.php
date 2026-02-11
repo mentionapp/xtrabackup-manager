@@ -953,6 +953,33 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 								}
 							}
 
+							// Send Slack notifications if enabled
+							if($config['SLACK']['enabled'] == true) {
+								try {
+									global $XBM_AUTO_HOSTNAME;
+
+									$slackNotifier = new slackNotifier();
+									$slackNotifier->setLogStream($log);
+
+									if(get_class($e) == 'KillException') {
+										$slackNotifier->sendBackupAbortedNotification($scheduledBackup, $XBM_AUTO_HOSTNAME);
+									} else {
+										$slackNotifier->sendBackupFailureNotification($scheduledBackup, $e, $XBM_AUTO_HOSTNAME);
+									}
+
+								} catch ( Exception $slackException ) {
+									// If we can't get backup info for Slack, send generic notification
+									try {
+										$slackNotifier = new slackNotifier();
+										$slackNotifier->setLogStream($log);
+										$slackNotifier->sendGenericFailureNotification($e, $XBM_AUTO_HOSTNAME);
+									} catch ( Exception $finalException ) {
+										// Log but don't fail - Slack notifications are non-critical
+										$log->write(basename(__FILE__).": Error: Failed to send Slack notification: ".$finalException->getMessage(), XBM_LOG_ERROR);
+									}
+								}
+							}
+
 							die();
 						}
 

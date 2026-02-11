@@ -47,6 +47,7 @@ class UnitTests {
         $this->testScheduledBackupValidations();
         $this->testEdgeCases();
         $this->testExceptionHandling();
+        $this->testSlackNotifier();
 
         $this->printSummary();
 
@@ -93,6 +94,15 @@ class UnitTests {
             $this->pass("ScheduledBackup class loaded");
         } else {
             $this->skip("ScheduledBackup class not found");
+        }
+
+        // Load slackNotifier class
+        $slackFile = $includesDir . '/slackNotifier.class.php';
+        if (file_exists($slackFile)) {
+            require_once $slackFile;
+            $this->pass("SlackNotifier class loaded");
+        } else {
+            $this->skip("SlackNotifier class not found");
         }
 
         return true;
@@ -725,6 +735,130 @@ class UnitTests {
                     $this->fail("Exception message too short: " . $e->getMessage());
                 }
             }
+        }
+    }
+
+    private function testSlackNotifier() {
+        echo YELLOW . "\n[TEST] Testing SlackNotifier Class...\n" . RESET;
+
+        if (!class_exists('slackNotifier')) {
+            $this->skip("SlackNotifier class not available");
+            return;
+        }
+
+        // Test 1: Class instantiation
+        try {
+            // Mock config for testing
+            global $config;
+            $config['SLACK']['enabled'] = false;
+            $config['SLACK']['webhook_url'] = '';
+            $config['SLACK']['channel'] = '';
+            $config['SLACK']['log_lines_count'] = 25;
+
+            $notifier = new slackNotifier();
+            $this->pass("SlackNotifier instantiation successful");
+        } catch (Exception $e) {
+            $this->fail("SlackNotifier instantiation failed: " . $e->getMessage());
+            return;
+        }
+
+        // Test 2: isEnabled() returns false when disabled
+        try {
+            $config['SLACK']['enabled'] = false;
+            $config['SLACK']['webhook_url'] = '';
+
+            $notifier = new slackNotifier();
+            if (!$notifier->isEnabled()) {
+                $this->pass("isEnabled() correctly returns false when disabled");
+            } else {
+                $this->fail("isEnabled() should return false when disabled");
+            }
+        } catch (Exception $e) {
+            $this->fail("isEnabled() test failed: " . $e->getMessage());
+        }
+
+        // Test 3: isEnabled() returns false when webhook_url is empty
+        try {
+            $config['SLACK']['enabled'] = true;
+            $config['SLACK']['webhook_url'] = '';
+
+            $notifier = new slackNotifier();
+            if (!$notifier->isEnabled()) {
+                $this->pass("isEnabled() correctly returns false when webhook_url is empty");
+            } else {
+                $this->fail("isEnabled() should return false when webhook_url is empty");
+            }
+        } catch (Exception $e) {
+            $this->fail("isEnabled() webhook test failed: " . $e->getMessage());
+        }
+
+        // Test 4: isEnabled() returns true when properly configured
+        try {
+            $config['SLACK']['enabled'] = true;
+            $config['SLACK']['webhook_url'] = 'https://hooks.slack.com/services/TEST/TEST/TEST';
+
+            $notifier = new slackNotifier();
+            if ($notifier->isEnabled()) {
+                $this->pass("isEnabled() correctly returns true when properly configured");
+            } else {
+                $this->fail("isEnabled() should return true when properly configured");
+            }
+        } catch (Exception $e) {
+            $this->fail("isEnabled() enabled test failed: " . $e->getMessage());
+        }
+
+        // Test 5: Verify all required methods exist
+        $requiredMethods = [
+            'sendBackupFailureNotification',
+            'sendBackupAbortedNotification',
+            'sendGenericFailureNotification',
+            'setLogStream',
+            'isEnabled'
+        ];
+
+        $allMethodsExist = true;
+        foreach ($requiredMethods as $method) {
+            if (!method_exists($notifier, $method)) {
+                $this->fail("Required method does not exist: $method");
+                $allMethodsExist = false;
+            }
+        }
+
+        if ($allMethodsExist) {
+            $this->pass("All required public methods exist");
+        }
+
+        // Test 6: Notification methods don't throw when disabled
+        try {
+            $config['SLACK']['enabled'] = false;
+            $notifier = new slackNotifier();
+
+            // Create a mock exception
+            $testException = new Exception("Test exception");
+
+            // These should all return false without throwing
+            $result1 = $notifier->sendGenericFailureNotification($testException, 'test-host');
+            $result2 = $notifier->sendGenericFailureNotification($testException, 'test-host');
+
+            if ($result1 === false && $result2 === false) {
+                $this->pass("Notification methods return false when disabled (non-blocking)");
+            } else {
+                $this->fail("Notification methods should return false when disabled");
+            }
+        } catch (Exception $e) {
+            $this->fail("Notification methods should not throw when disabled: " . $e->getMessage());
+        }
+
+        // Test 7: setLogStream accepts logStream-like object
+        try {
+            // Create a simple mock log object
+            $mockLog = new stdClass();
+            $mockLog->write = function() {};
+
+            $notifier->setLogStream($mockLog);
+            $this->pass("setLogStream() accepts log object without error");
+        } catch (Exception $e) {
+            $this->fail("setLogStream() failed: " . $e->getMessage());
         }
     }
 
