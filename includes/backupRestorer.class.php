@@ -25,20 +25,20 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class backupRestorer {
 
 
-		function __construct() {
+		public function __construct() {
 			$this->log = false;
 			$this->infolog = false;
 		}
 
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
-		function setInfoLogStream($log) {
+		public function setInfoLogStream($log) {
 			$this->infolog = $log;
 		}
 
-		function validate($backupSnapshot) {
+		public function validate($backupSnapshot) {
 
 			// Check we got an object
 			if(!is_object($backupSnapshot)) {
@@ -55,7 +55,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Restore $backupSnapshot or $materializedBackup to local path $path
-		function restoreLocal($backupSnapshot, $path) {
+		public function restoreLocal($backupSnapshot, $path) {
 
 			$this->validate($backupSnapshot);
 
@@ -70,7 +70,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 					throw new Exception('backupRestorer->restoreLocal: '."Error: Attempted to create directory for restore, but failed -- $path");
 				}
 				// Set permissions to be rwx owner and rx group.
-				if( ! @chmod($path, 0750) ) {
+				if( ! chmod($path, 0750) ) {
 					throw new Exception('backupRestorer->restoreLocal: '."Error: Attempted to change permissions for newly created restore path, but failed -- $path");
 				}
 			} else if(!is_dir($path)) {
@@ -176,7 +176,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 	
-		function restoreRemote($backupSnapshot, $remoteExpression) {
+		public function restoreRemote($backupSnapshot, $remoteExpression) {
 			$this->validate($backupSnapshot);
 			return false;
 		}

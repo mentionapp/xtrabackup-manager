@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class continuousIncrementalBackupTaker {
 
 
-		function __construct() {
+		public function __construct() {
 			$this->log = false;
 			$this->infolog = false;
 			$this->infologVerbose = true;
@@ -32,34 +32,34 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set the logStream for general / debug xbm output
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Set the logStream for informational output
-		function setInfoLogStream($log) {
+		public function setInfoLogStream($log) {
 			$this->infolog = $log;
 		}
 
 		// Set whether or not the info log logStream should write to stdout
-		function setInfoLogVerbose($bool) {
+		public function setInfoLogVerbose($bool) {
 			$this->infologVerbose = $bool;
 		}
 
 		// Set the time thie backup was launched
-		function setLaunchTime($launchTime) {
+		public function setLaunchTime($launchTime) {
 			$this->launchTime = $launchTime;
 		}
 
 		// Set the tickets that should be released once the runningBackup object entry for the job is fully initialized..
-		function setTicketsToReleaseOnStart($ticketArray) {
+		public function setTicketsToReleaseOnStart($ticketArray) {
 			if( !is_array($ticketArray) ) {
 				throw new Exception('continuousIncrementalBackupTaker->setTicketsToReleaseOnStart: '."Error: Expected an array as a paramater, but did not get one.");
 			}
 			$this->ticketsToReleaseOnStart = $ticketArray;
 		}
 
-		function validateParams($params) {
+		public function validateParams($params) {
 
 			// max_snapshots 
 			scheduledBackup::validateMaxSnapshots($params['max_snapshots']);
@@ -70,7 +70,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// The main functin of this class - take the snapshot for a scheduled backup
 		// Takes a scheduledBackup object as a param
-		function takeScheduledBackupSnapshot ( backupJob $job ) {
+		public function takeScheduledBackupSnapshot ( backupJob $job ) {
 
 			global $config;
 
@@ -105,7 +105,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$sbGroups = $scheduledBackup->getSnapshotGroupsNewestToOldest();
 
 			// There should only be one group...
-			if(sizeOf($sbGroups) > 1) {
+			if(count($sbGroups) > 1) {
 				throw new Exception('continuousIncrementalBackupTaker->takeScheduledBackupSnapshot: '."Error: Found more than one snapshot group for a backup using continuous incremental strategy.");
 			}
 
@@ -126,7 +126,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Check for COMPLETED backup snapshots under the scheduledBackup and perform any necessary merging/deletion
-		function applyRetentionPolicy( backupJob $job ) {
+		public function applyRetentionPolicy( backupJob $job ) {
 
 			global $config;
 
@@ -198,7 +198,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Handle any postProcessing
-		function postProcess( backupJob $job ) {
+		public function postProcess( backupJob $job ) {
 
 			$scheduledBackup = $job->getScheduledBackup();
 

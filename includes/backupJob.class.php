@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class backupJob {
 
 
-		function __construct($id) {
+		public function __construct($id) {
 			if(!is_numeric($id) ) {
 				throw new Exception('backupJob->__construct: '."Error: The ID for this object is not an integer.");
 			}
@@ -33,12 +33,12 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set the logStream to write out to
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Get info about this backup job
-		function getInfo() {
+		public function getInfo() {
 
 
 			if(!is_numeric($this->id)) {
@@ -61,7 +61,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get the scheduled backup associated with this job
-		function getScheduledBackup() {
+		public function getScheduledBackup() {
 
 			if(!is_numeric($this->id)) {
 				throw new Exception('backupJob->getInfo: '."Error: The ID for this object is not an integer.");
@@ -78,7 +78,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set the status of the backup job
-		function setStatus($status = false) {
+		public function setStatus($status = false) {
 
 			if(!is_numeric($this->id)) {
 				throw new Exception('backupJob->setStatus: '."Error: The ID for this object is not an integer.");
@@ -103,7 +103,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Mark this job as killed - this flag is monitored during sleep/wait loops 
 		// and allows us to throw exceptions to abort the job
-		function setKilled( $bool = true ) {
+		public function setKilled( $bool = true ) {
 
 			if(!is_numeric($this->id) ) {
 				throw new Exception('backupJob->setKilled: '."Error: The ID for this object is not an integer.");
@@ -127,7 +127,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Check to see if this job is marked as killed or not.
-		function isKilled() {
+		public function isKilled() {
 
 			$info = $this->getInfo();
 
@@ -141,7 +141,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Check to see if this job is actually running
-		function isRunning() {
+		public function isRunning() {
 
 			$info = $this->getInfo();
 

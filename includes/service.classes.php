@@ -23,17 +23,17 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// Service class to get back hosts
 	class hostGetter {
 
-		function __construct() {
+		public function __construct() {
 			$this->log = false;
 		}
 
 
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Get all Host objects
-		function getAll($activeOnly = false) {
+		public function getAll($activeOnly = false) {
 			global $config;
 
 
@@ -61,7 +61,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Create a new host object and return it 
-		function getNew($hostname, $hostDesc) {
+		public function getNew($hostname, $hostDesc) {
 
 			// Validate inputs
 			host::validateHostname($hostname);
@@ -93,7 +93,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get host by Name
-		function getByName($name) {
+		public function getByName($name) {
 
 			global $config;
 
@@ -126,7 +126,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get host by ID
-		function getById($id) {
+		public function getById($id) {
 
 			global $config;
 
@@ -160,16 +160,16 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// Service class to get backupJobs
 	class backupJobGetter {
 
-		function __construct() {
+		public function __construct() {
 			$this->log = false;
 		}   
 
 
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}   
 
-		function getNew(scheduledBackup $scheduledBackup) {
+		public function getNew(scheduledBackup $scheduledBackup) {
 
 			$sbInfo = $scheduledBackup->getInfo();
 
@@ -190,7 +190,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get all the running backup jobs
-		function getRunning() {
+		public function getRunning() {
 
 
 			$conn = dbConnection::getInstance($this->log);
@@ -216,7 +216,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get the backup job by ID
-		function getById($id, $notFoundException = true) {
+		public function getById($id, $notFoundException = true) {
 
 			if(!is_numeric($id)) {
 				throw new Exception('backupJobGetter->getById: '."Error: Expected a numeric ID for the backup job to fetch, but did not get one.");
@@ -250,16 +250,16 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// Service class to get back storage volumes
 	class volumeGetter {
 
-		function __construct() {
+		public function __construct() {
 			$this->log = false;
 		}
 		
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Get all Volume objects
-		function getAll() {
+		public function getAll() {
 			global $config;
 
 			
@@ -286,7 +286,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get volume by ID
-		function getById($id) {
+		public function getById($id) {
 
 			global $config;
 
@@ -316,7 +316,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get volume by Name
-		function getByName($name) {
+		public function getByName($name) {
 
 			global $config;
 
@@ -348,7 +348,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get a new volume with this name and path...
-		function getNew($volumeName, $volumePath) {
+		public function getNew($volumeName, $volumePath) {
 
 			$volumePath = rtrim($volumePath, '/');
 
@@ -385,16 +385,16 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// Service class to get back scheduled backups
 	class scheduledBackupGetter {
 
-		function __construct() {
+		public function __construct() {
 			$this->log = false;
 		}
 
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Get all scheduledBackup objects
-		function getAll() {
+		public function getAll() {
 
 			global $config;
 
@@ -421,7 +421,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get one scheduledBackup object by ID
-		function getById($id) {
+		public function getById($id) {
 
 			global $config;
 
@@ -453,7 +453,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get a scheduledBackup by name
-		function getByHostnameAndName($hostname, $name) {
+		public function getByHostnameAndName($hostname, $name) {
 
 			host::validateHostname($hostname);
 			scheduledBackup::validateName($name);
@@ -497,7 +497,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get a new scheduledBackup object
-		function getNew($hostname, $name, $strategyCode, $cronExpression, $volumeName, $datadir, $mysqlUser, $mysqlPass) {
+		public function getNew($hostname, $name, $strategyCode, $cronExpression, $volumeName, $datadir, $mysqlUser, $mysqlPass) {
 
 			$datadir = rtrim($datadir, '/');
 
@@ -597,15 +597,15 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 	class mysqlTypeGetter {
 
-		function __construct() {
+		public function __construct() {
 			$this->log = false;
 		}
 
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
-		function getById($id) {
+		public function getById($id) {
 
 			if(!is_numeric($id) ) {
 				throw new Exception('mysqlTypeGetter->getById: '."Error: The ID for this object is not an integer.");
@@ -639,14 +639,14 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class cronFlusher {
 
 
-		function flushSchedule() {
+		public function flushSchedule() {
 
 			global $config;
 
 			$cron = $this->buildCron();
 
 			$tmpName = tempnam($config['SYSTEM']['tmpdir'], 'xbmcron');
-			$fp = @fopen($tmpName, "w");
+			$fp = fopen($tmpName, "w");
 
 			// Validate we got a resource OK
 			if(!is_resource($fp)) {
@@ -700,7 +700,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Build the crontab
-		function buildCron() {
+		public function buildCron() {
 
 			global $config;
 			global $XBM_AUTO_INSTALLDIR;
@@ -804,26 +804,26 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		var $started	= false;
 
 		# Constructor 
-		function Timer( $start = true ) {
+		public function Timer( $start = true ) {
 				if ( $start )
 						$this->start();
 		}
 
 		# Start counting time 
-		function start() {
+		public function start() {
 				$this->started = true;
 				$this->start = $this->_gettime();
 		}
 
 		# Stop counting time 
-		function stop() {
+		public function stop() {
 				$this->started = false;
 				$this->stop	  = $this->_gettime();
 				$this->elapsed = $this->_compute();
 		}
 
 		# Get Elapsed Time 
-		function elapsed() {
+		public function elapsed() {
 				if ( $this->started == true)
 						$this->stop();
 
@@ -831,7 +831,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		# Reset timer
-		function reset() {
+		public function reset() {
 				$this->started = false;
 				$this->start	= 0;
 				$this->stop	 = 0;
@@ -841,14 +841,14 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		#### PRIVATE METHODS #### 
 
 		# Get Current Time 
-		function _gettime() {
+		public function _gettime() {
 			$mtime = microtime();
 			$mtime = explode( " ", $mtime );
 			return $mtime[1] + $mtime[0];
 		}
 
 		# Compute elapsed time 
-		function _compute() {
+		public function _compute() {
 			return $this->stop - $this->start;
 		}
 
@@ -859,12 +859,12 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class portFinder {
 
 
-		function __construct() {
+		public function __construct() {
 			$this->log = false;
 			$this->availablePort = false;
 		}
 
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
@@ -873,7 +873,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		// cycles over the configured port range until it finds a free port
 		// Will attempt to read from the table $attempts times - default 5
 		// Will sleep $usleep microseconds between attempts - default 1MM microseconds = 1 second
-		function findAvailablePort($attempts=5, $usleep = 1000000) {
+		public function findAvailablePort($attempts=5, $usleep = 1000000) {
 
 			global $config;
 
@@ -924,22 +924,22 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// Service class to get the current runningBackup objects
 	class runningBackupGetter {
 
-		function __construct() {
+		public function __construct() {
 			$this->checkSchemaVersion = true;
 			$this->log = false;
 		}
 
 
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}   
 
-		function setSchemaVersionChecks($checks = true) {
+		public function setSchemaVersionChecks($checks = true) {
 			$this->checkSchemaVersion = $checks;
 		}
 
 		// Clean the list of running backups - remove entries for pids that are not running	
-		function cleanRunningBackups() {
+		public function cleanRunningBackups() {
 
 			global $config;
 
@@ -971,7 +971,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}	
 
 		// Get all scheduledBackup objects
-		function getAll() {
+		public function getAll() {
 		
 			global $config;
 
@@ -1001,7 +1001,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// return runningBackups by host
-		function getByHost(host $host) {
+		public function getByHost(host $host) {
 
 			global $config;
 
@@ -1031,7 +1031,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// return runningBackups by scheduledBackup
-		function getByScheduledBackup(scheduledBackup $scheduledBackup) {
+		public function getByScheduledBackup(scheduledBackup $scheduledBackup) {
 
 			global $config;
 
@@ -1068,7 +1068,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class recursiveDeleter {
 
 		// Recursively delete everything in a directory
-		function delTree($dir) {
+		public function delTree($dir) {
 
 			if(!is_dir($dir) ) {
 				throw new Exception('recursiveDeleter->delTree: '."Error: Could not delete dir $dir - It is not a directory.");
@@ -1116,15 +1116,15 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// Service class to get backupSnapshot objects.
 	class backupSnapshotGetter {
 
-		function __construct() {
+		public function __construct() {
 			$this->log = false;
 		}
 		
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 			
-		function getById($id) {
+		public function getById($id) {
 				
 			if(!is_numeric($id) ) {
 				throw new Exception('backupSnapshotGetter->getById: '."Error: The ID for this object is not an integer.");
@@ -1156,15 +1156,15 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// Service class to get backupSnapshot objects.
 	class materializedSnapshotGetter {
 
-		function __construct() {
+		public function __construct() {
 			$this->log = false;
 		}
 
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
-		function getById($id) {
+		public function getById($id) {
 
 			if(!is_numeric($id) ) {
 				throw new Exception('materializedSnapshotGetter->getById: '."Error: The ID for this object is not an integer.");
@@ -1198,12 +1198,12 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// Service class for making temporary directories
 	class remoteTempDir {
 
-		function __construct() {
+		public function __construct() {
 			$this->initSuccess = false;
 		}
 
 		// Create the tmpdir remotely and return the path information
-		function init($host, $port, $user, $dir, $prefix='') {
+		public function init($host, $port, $user, $dir, $prefix='') {
 
 			$this->host = $host;
 			$this->port = $port;
@@ -1232,7 +1232,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Destroy the remote tmpdir
-		function destroy() {
+		public function destroy() {
 
 			// If this never init successfully, then nothing to destroy...
 			if($this->initSuccess == false) {
@@ -1263,7 +1263,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 	class backupSnapshotMerger {
 
-		function mergeSnapshots($seedSnapshot, $deltaSnapshot) {
+		public function mergeSnapshots($seedSnapshot, $deltaSnapshot) {
 
 			// Create a new snapshot entry
 
@@ -1350,7 +1350,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Merge the deltas from deltaPath into seedPath using xbBinary xtrabackup binary
-		function mergePaths($seedPath, $deltaPath, $xbBinary='') {
+		public function mergePaths($seedPath, $deltaPath, $xbBinary='') {
 
 			global $config;
 
@@ -1427,7 +1427,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Get a netcat (nc) command to use to create a netcat listener on port $port
 		// Specify a systemType if you like, otherwise detect the current system.
-		function getServerCommand($port, $systemType = PHP_OS) {
+		public function getServerCommand($port, $systemType = PHP_OS) {
 	
 			switch( $systemType ) {
 				default:
@@ -1460,7 +1460,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// get a netcat (nc) command to use to create a netcat sender/client - connecting to $host on port $port
 		// specify a systemType if you like, otherwise detect the type of current system
-		function getClientCommand($host, $port) {
+		public function getClientCommand($host, $port) {
 
 			// Currently we can use some BASH magic to make this work on both Nexenta and Linux
 			// By default attempt to auto-detect if we have a netcat version that has the -q option mentioned in help output
@@ -1477,7 +1477,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class backupTakerFactory {
 
 		// Return a backupSnapshotTaker object based on the backup strategy...
-		function getBackupTakerByStrategy($stratCode = false) {
+		public function getBackupTakerByStrategy($stratCode = false) {
 
 
 			switch($stratCode) {
@@ -1510,7 +1510,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Get the snapshot group that comes after the given group
 		// used to create the next snapshotGroup in sequence
-		function getNextSnapshotGroup($snapshotGroup) {
+		public function getNextSnapshotGroup($snapshotGroup) {
 
 			return new backupSnapshotGroup($snapshotGroup->scheduledBackupId, ($snapshotGroup->getNumber() + 1) );
 
@@ -1523,16 +1523,16 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// if there are too man backups running, etc.
 	class queueManager {
 
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
-		function setInfoLogStream($log) {
+		public function setInfoLogStream($log) {
 			$this->infolog = $log;
 		}
 
 		// Get a ticket number in the queue of the specified name
-		function getTicketNumber($queueName) {
+		public function getTicketNumber($queueName) {
 
 			// Clean the queue before we get new tickets
 			$this->cleanQueue($queueName);
@@ -1552,7 +1552,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Check if we are at the front of the queue
-		function checkFrontOfQueue($queueName, $ticketNumber) {
+		public function checkFrontOfQueue($queueName, $ticketNumber) {
 
 			if(!is_numeric($ticketNumber)) {
 				throw new Exception('queueManager->checkFrontOfQueue: '."Error: Expected a numeric ticket number, but did not get one.");
@@ -1594,7 +1594,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Check this queue and remove any entry that belongs to a pid that is not actually running
-		function cleanQueue($queueName) {
+		public function cleanQueue($queueName) {
 
 			
 			$conn = dbConnection::getInstance($this->log);
@@ -1622,7 +1622,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Release this ticket number
-		function releaseTicket($ticketNumber) {
+		public function releaseTicket($ticketNumber) {
 
 			if(!is_numeric($ticketNumber) ) {
 				throw new Exception('queueManager->releaseTicket: '."Error: Expected a numeric ticket number, but did not get one.");
@@ -1648,13 +1648,13 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class backupStrategyGetter {
 
 		// Set the log stream for this object to use
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 
 		}
 
 		// Fetch a backupStrategy by code
-		function getByCode($code) {
+		public function getByCode($code) {
 
 			global $config;
 
@@ -1686,7 +1686,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Fetch a backupStrategy by id
-		function getById($id) {
+		public function getById($id) {
 
 			global $config;
 
@@ -1715,7 +1715,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// Little support class to provide readline functionality in systems where there is no readline built in.
 	class inputReader {
 
-		function readline($prompt="") {
+		public function readline($prompt="") {
 
 			echo $prompt;
 

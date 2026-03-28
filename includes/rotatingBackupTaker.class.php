@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class rotatingBackupTaker {
 
 
-		function __construct() {
+		public function __construct() {
 			$this->log = false;
 			$this->infolog = false;
 			$this->infologVerbose = true;
@@ -33,27 +33,27 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set the logStream for general / debug xbm output
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Set the logStream for informational output
-		function setInfoLogStream($log) {
+		public function setInfoLogStream($log) {
 			$this->infolog = $log;
 		}
 
 		// Set whether or not the info log logStream should write to stdout
-		function setInfoLogVerbose($bool) {
+		public function setInfoLogVerbose($bool) {
 			$this->infologVerbose = $bool;
 		}
 
 		// Set the time this backup was launched
-		function setLaunchTime($launchTime) {
+		public function setLaunchTime($launchTime) {
 			$this->launchTime = $launchTime;
 		}
 
 		// Set the tickets that should be released once the runningBackup object entry for the job is fully initialized..
-		function setTicketsToReleaseOnStart($ticketArray) {
+		public function setTicketsToReleaseOnStart($ticketArray) {
 			if( !is_array($ticketArray) ) {
 				throw new Exception('rotatingBackupTaker->setTicketsToReleaseOnStart: '."Error: Expected an array as a paramater, but did not get one.");
 			}
@@ -61,7 +61,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Validate the parameters for this backup strategy 
-		function validateParams($sbParams) {
+		public function validateParams($sbParams) {
 
 
 			//
@@ -152,7 +152,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// The main functin of this class - take the snapshot for a scheduled backup
-		function takeScheduledBackupSnapshot ( backupJob $job ) {
+		public function takeScheduledBackupSnapshot ( backupJob $job ) {
 
 			global $config;
 
@@ -192,7 +192,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$this->infolog->write("Using ".$sbParams['rotate_method']." as the rotation method...", XBM_LOG_INFO);
 
 			// if we have only one group...
-			if(sizeOf($snapshotGroups) == 1 ) {
+			if(count($snapshotGroups) == 1 ) {
 				// and we dont even have a seed yet...
 
 				if($snapshotGroups[0]->getSeed() === false) {
@@ -259,7 +259,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 					$snapshots = $snapshotGroups[0]->getAllSnapshotsNewestToOldest();
 					// is it >= max?
 					// if yes - stop and if we treat this critical throw an exception/failure
-					if( sizeOf($snapshots) >= $sbParams['max_snapshots_per_group'] ) {
+					if( count($snapshots) >= $sbParams['max_snapshots_per_group'] ) {
 
 						if( !isSet($sbParams['backup_skip_fatal']) || $sbParams['backup_skip_fatal'] == 1 ) {
 
@@ -280,9 +280,9 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 					// get the number of snapshots in the newest group
 					$snaps = $snapshotGroups[0]->getAllSnapshotsNewestToOldest();
 
-					$this->infolog->write("Detected ".sizeOf($snaps)." snapshots in current group and we are configured to rotate after number ".$sbParams['rotate_snapshot_no'].".", XBM_LOG_INFO);
+					$this->infolog->write("Detected ".count($snaps)." snapshots in current group and we are configured to rotate after number ".$sbParams['rotate_snapshot_no'].".", XBM_LOG_INFO);
 					// is it >= maximum?
-					if(sizeOf($snaps) >= $sbParams['rotate_snapshot_no'] ) {
+					if(count($snaps) >= $sbParams['rotate_snapshot_no'] ) {
 						$this->infolog->write("Rotating to the next group and taking a full backup for it.", XBM_LOG_INFO);
 
 						// if yes, create new group and take seed
@@ -311,7 +311,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Check for COMPLETED backup snapshots under the scheduledBackup and perform any necessary merging/deletion
-		function applyRetentionPolicy( backupJob $job ) {
+		public function applyRetentionPolicy( backupJob $job ) {
 
 			$scheduledBackup = $job->getScheduledBackup();
 
@@ -322,8 +322,8 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$this->infolog->write("Checking to see if we have more snapshot groups than the maximum configured of ".$sbParams['max_snapshot_groups'].".", XBM_LOG_INFO);
 
 			// while there are more groups than the configured maximum, delete contents of the oldest group
-			while( sizeOf($groups) > $sbParams['max_snapshot_groups'] ) {
-				$this->infolog->write("Found ".sizeOf($groups)." groups - deleting the oldest group and checking again.", XBM_LOG_INFO);
+			while( count($groups) > $sbParams['max_snapshot_groups'] ) {
+				$this->infolog->write("Found ".count($groups)." groups - deleting the oldest group and checking again.", XBM_LOG_INFO);
 
 				// Deletes the files for all snapshots in the group as well as marking them as deleted.
 				$groups[0]->deleteAllSnapshots();
@@ -338,7 +338,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Handle any postProcessing
-		function postProcess(backupJob $job) {
+		public function postProcess(backupJob $job) {
 
 			$scheduledBackup = $job->getScheduledBackup();
 			// Get Params

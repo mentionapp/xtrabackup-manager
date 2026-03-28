@@ -24,30 +24,30 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class backupSnapshotTaker {
 
 
-		function __construct() {
+		public function __construct() {
 			$this->log = false;
 			$this->infolog = false;
 			$this->infologVerbose = true;
 		}
 
 		// Set the logStream for general / debug xbm output
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Set the logStream for informational output
-		function setInfoLogStream($log) {
+		public function setInfoLogStream($log) {
 			$this->infolog = $log;
 		}
 
 		// Set whether or not the info log logStream should write to stdout
-		function setInfoLogVerbose($bool) {
+		public function setInfoLogVerbose($bool) {
 			$this->infologVerbose = $bool;
 		}
 
 		// The main functin of this class - take the snapshot for a scheduled backup based on the backup strategy
 		// Takes a scheduledBackup object as a param
-		function takeScheduledBackupSnapshot ( scheduledBackup $scheduledBackup  ) {
+		public function takeScheduledBackupSnapshot ( scheduledBackup $scheduledBackup  ) {
 
 			global $config;
 
@@ -147,10 +147,10 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 					$runningBackups = $sbHost->getRunningBackups();
 
 					// If we are at or greater than max num of backups for the host, then sleep before we try again.
-					if( sizeOf($runningBackups) >= $config['SYSTEM']['max_host_concurrent_backups'] ) {
+					if( count($runningBackups) >= $config['SYSTEM']['max_host_concurrent_backups'] ) {
 						// Output to info log - this currently spits out every 30 secs (define is 30 at time of writing) 
 						// maybe it is too much
-						$this->infolog->write("Found ".sizeOf($runningBackups)." backup(s) running for this host out of a maximum of ".
+						$this->infolog->write("Found ".count($runningBackups)." backup(s) running for this host out of a maximum of ".
 							$config['SYSTEM']['max_host_concurrent_backups']." per host. Sleeping ".XBM_SLEEP_SECS." before retry...", XBM_LOG_INFO);
 
 						for($i = 0; $i <= XBM_SLEEP_SECS; $i++) {
@@ -188,10 +188,10 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 					// Now check to see the how many backups are running globally and if we should be allowed to run...
 					$globalRunningBackups = $runningBackupGetter->getAll();
 
-					if( sizeOf($globalRunningBackups) >= $config['SYSTEM']['max_global_concurrent_backups'] ) {
+					if( count($globalRunningBackups) >= $config['SYSTEM']['max_global_concurrent_backups'] ) {
 						//output to info log -- currentl every 30 secs based on define at time of writing
 						// maybe too much?
-						$this->infolog->write("Found ".sizeOf($globalRunningBackups)." backup(s) running out of a global maximum of ".
+						$this->infolog->write("Found ".count($globalRunningBackups)." backup(s) running out of a global maximum of ".
 							$config['SYSTEM']['max_global_concurrent_backups'].". Sleeping ".XBM_SLEEP_SECS." before retry...", XBM_LOG_INFO);
 
 						for($i = 0; $i <= XBM_SLEEP_SECS; $i++) {

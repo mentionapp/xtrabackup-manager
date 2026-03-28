@@ -24,22 +24,22 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// This class is responsible for managing the materialized snapshots for a given scheduledBackup
 	class materializedSnapshotManager {
 
-		function __construct() {
+		public function __construct() {
 			$this->infolog = false;
 			$this->log = false;
 		}
 
-		function setInfoLogStream($log) {
+		public function setInfoLogStream($log) {
 			$this->infolog = $log;
 		}
 
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 
 		// For the given scheduledBackup, update the materialized backup to the latest
-		function materializeLatest($scheduledBackup = false) {
+		public function materializeLatest($scheduledBackup = false) {
 
 			global $config;
 
@@ -50,7 +50,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 			// Find the latest backup snapshot for the scheduledBackup
 			$snapshotGroups = $scheduledBackup->getSnapshotGroupsNewestToOldest();
-			if(sizeOf($snapshotGroups) == 0 ) {
+			if(count($snapshotGroups) == 0 ) {
 				throw new Exception('materializedSnapshotManager->materializeLatest: '."Error: Expected to find at least one snapshot group for the scheduledBackup, but got none.");
 			}
 

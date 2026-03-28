@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class backupVolume {
 
 
-		function __construct($id) {
+		public function __construct($id) {
 
 			if(!is_numeric($id) ) {
 				throw new Exception('backupVolume->__construct: '."Error: The ID for this object is not an integer.");
@@ -35,12 +35,12 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Get the info for this backup volume
-		function getInfo() {
+		public function getInfo() {
 
 			global $config;
 
@@ -67,7 +67,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set the param of this Backup Volume to value
-		function setParam($param, $value) {
+		public function setParam($param, $value) {
 
 			if(!is_numeric($this->id)) {
 				throw new Exception('backupVolume->setParam: '."Error: The ID for this object is not an integer.");
@@ -90,7 +90,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 					// Validate input
 					self::validatePath($value);
 					$backups = $this->getScheduledBackups();
-					if(sizeOf($backups) > 0 ) {
+					if(count($backups) > 0 ) {
 						$info = $this->getInfo();
 						$errMsg = 'Error: Unable to edit the path of Backup Volume with name: '.$info['name']."\n\n".$this->getScheduledBackupDisplay();
 						throw new ProcessingException($errMsg);
@@ -145,7 +145,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 
-		function delete() {
+		public function delete() {
 
 			// Validate this...
 			if(!is_numeric($this->id)) {
@@ -155,7 +155,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$backups = $this->getScheduledBackups();
 
 			// If nothing linked to this volume, just delete it
-			if(sizeOf($backups) == 0) {
+			if(count($backups) == 0) {
 
 				
 				$conn = dbConnection::getInstance($this->log);
@@ -183,7 +183,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get the scheduled backups that are linked to this backup volume
-		function getScheduledBackups() {
+		public function getScheduledBackups() {
 
 			// Validate this...
 			if(!is_numeric($this->id)) {
@@ -213,7 +213,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get a message to print the scheduled backups linked to this volume
-		function getScheduledBackupDisplay() {
+		public function getScheduledBackupDisplay() {
 			// Validate this...
 			if(!is_numeric($this->id)) {
 				throw new Exception('backupVolume->getScheduledBackupDisplay: '."Error: The ID for this object is not an integer.");

@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class genericBackupTaker {
 
 
-		function __construct() {
+		public function __construct() {
 			$this->log = false;
 			$this->infolog = false;
 			$this->infologVerbose = true;
@@ -32,22 +32,22 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set the logStream for general / debug xbm output
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Set the logStream for informational output
-		function setInfoLogStream($log) {
+		public function setInfoLogStream($log) {
 			$this->infolog = $log;
 		}
 
 		// Set whether or not the info log logStream should write to stdout
-		function setInfoLogVerbose($bool) {
+		public function setInfoLogVerbose($bool) {
 			$this->infologVerbose = $bool;
 		}
 
 		// Set the tickets that should be released once the runningBackup object entry for the job is fully initialized..
-		function setTicketsToReleaseOnStart($ticketArray) {
+		public function setTicketsToReleaseOnStart($ticketArray) {
 			if( !is_array($ticketArray) ) {
 				throw new Exception('genericBackupTaker->setTicketsToReleaseOnStart: '."Error: Expected an array as a paramater, but did not get one.");
 			}
@@ -55,7 +55,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Take a full backup snapshot into the snapshotGroup given
-		function takeFullBackupSnapshot(backupJob $job, $snapshotGroup) {
+		public function takeFullBackupSnapshot(backupJob $job, $snapshotGroup) {
 
 			global $config;
 
@@ -370,7 +370,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Take an incremental backup snapshot into the snapshotGroup using log sequence number of seedSnap
-		function takeIncrementalBackupSnapshot(backupJob $job, $snapshotGroup, $seedSnap) {
+		public function takeIncrementalBackupSnapshot(backupJob $job, $snapshotGroup, $seedSnap) {
 
 			global $config;
 

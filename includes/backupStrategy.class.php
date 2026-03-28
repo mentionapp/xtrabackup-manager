@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class backupStrategy {
 
 
-		function __construct($id) {
+		public function __construct($id) {
 			if(!is_numeric($id) ) {
 				throw new Exception('backupStrategy->__construct: '."Error: The ID for this object is not an integer.");
 			}
@@ -33,12 +33,12 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set the logStream to write out to
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Get info about this backupStrategy
-		function getInfo() {
+		public function getInfo() {
 
 			global $config;
 

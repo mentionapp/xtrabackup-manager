@@ -24,7 +24,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class host {
 
 
-		function __construct($id) {
+		public function __construct($id) {
 			if(!is_numeric($id) ) {
 				throw new Exception('host->__construct: '."Error: The ID for this object is not an integer.");
 			}
@@ -34,12 +34,12 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set the logStream to write out to
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Get info about this host
-		function getInfo() {
+		public function getInfo() {
 
 			global $config;
 
@@ -68,7 +68,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Get scheduled backups
-		function getScheduledBackups() {
+		public function getScheduledBackups() {
 
 			global $config;
 
@@ -94,7 +94,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Return true or false 
-		function isActive() {
+		public function isActive() {
 
 			$info = $this->getInfo();
 
@@ -108,7 +108,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Get the running backups for this host
-		function getRunningBackups() {
+		public function getRunningBackups() {
 
 			global $config;
 
@@ -176,7 +176,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Delete the host - if it has nothing attached to it
-		function delete() {
+		public function delete() {
 
 			// Validate this...
 			if(!is_numeric($this->id)) {
@@ -186,7 +186,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 			$backups = $this->getScheduledBackups();
 
 			// If nothing linked to this volume, just delete it
-			if(sizeOf($backups) == 0) {
+			if(count($backups) == 0) {
 
 				
 				$conn = dbConnection::getInstance($this->log);
@@ -216,7 +216,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Get a displayed list of scheduled backups
 		// Get a message to print the scheduled backups linked to this volume
-		function getScheduledBackupDisplay() {
+		public function getScheduledBackupDisplay() {
 
 			// Validate this...
 			if(!is_numeric($this->id)) {
@@ -270,7 +270,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Set Param to value for the hose
-		function setParam($param, $value) {
+		public function setParam($param, $value) {
 
 			// Validate this...
 			if(!is_numeric($this->id)) {
@@ -285,7 +285,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 				case 'hostname':
 					self::validateHostname($value);
 					$backups = $this->getScheduledBackups();
-					if(sizeOf($backups) > 0) {
+					if(count($backups) > 0) {
 						// We have backups linked to this volume
 						// Collect and print the information ...
 

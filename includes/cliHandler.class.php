@@ -25,12 +25,12 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	class cliHandler {
 
 		// Set the logStream to write to
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
 		// Print top level command help-text
-		function printBaseHelpText() {
+		public function printBaseHelpText() {
 
 			echo("Usage: xbm <context> <action> <args> ...\n\n");
 			echo("Contexts and actions may be one of the following:\n\n");
@@ -57,13 +57,13 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		}
 
-		function printHeader() {
+		public function printHeader() {
 			print("\n".XBM_RELEASE_VERSION."\n\n");
 		}
 
 		// Handles the arguments given on the command-line
 		// Accepts the $argv array 
-		function handleArguments($args) {
+		public function handleArguments($args) {
 
 			// If we arent given any parameters
 			if(!isSet($args[1])) {
@@ -147,7 +147,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Print out the help text for volumes context
-		function printVolumeHelpText($args) {
+		public function printVolumeHelpText($args) {
 
 			echo("Usage: xbm ".$args[1]." <action> <args> ...\n\n");
 			echo("Actions may be one of the following:\n\n");
@@ -167,7 +167,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Print out the help text for snpshots context
-		function printSnapshotHelpText($args) {
+		public function printSnapshotHelpText($args) {
 
 			echo("Usage: xbm ".$args[1]." <actions> <args> ...\n\n");
 			echo("Actions may be one of the following:\n\n");
@@ -184,7 +184,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Print out the help text for hosts context
-		function printHostHelpText($args) {
+		public function printHostHelpText($args) {
 
 			echo("Usage: xbm ".$args[1]." <actions> <args> ...\n\n");
 			echo("Actions may be one of the following:\n\n");
@@ -202,7 +202,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Print out the help text for backups context
-		function printBackupHelpText($args) {
+		public function printBackupHelpText($args) {
 
 			echo("Usage: xbm ".$args[1]." <actions> <args> ...\n\n");
 			echo("Actions may be one of the following:\n\n");
@@ -224,7 +224,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Handle actions for the snapshot context
-		function handleSnapshotActions($args) {
+		public function handleSnapshotActions($args) {
 
 			global $config;
 
@@ -254,7 +254,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 						$scheduledBackups = $host->getScheduledBackups();
 
 						// If we dont find scheduled backups - throw exception
-						if(sizeOf($scheduledBackups) == 0 ) {
+						if(count($scheduledBackups) == 0 ) {
 							throw new ProcessingException("Error: Could not find any backups for host: $hostname");
 						}
 
@@ -327,7 +327,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 								echo("	  ID: ".$snapInfo['backup_snapshot_id']."  Type: ".$snapInfo['type']."  Snapshot Time: ".$snapInfo['snapshot_time']."  Creation Method: ".$snapInfo['creation_method']."\n");
 							}
 
-							if(sizeOf($snapshots) == 0) {
+							if(count($snapshots) == 0) {
 								echo("	  None.\n");
 							}
 
@@ -358,12 +358,12 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 						$scheduledBackups = $host->getScheduledBackups();
 
 						// If we dont find scheduled backups - throw exception
-						if(sizeOf($scheduledBackups) == 0 ) {
+						if(count($scheduledBackups) == 0 ) {
 							throw new ProcessingException("Error: Could not find any backups for host: $hostname");
 						}
 
 						// If we find more than 1 scheduled backup - throw exception
-						if(sizeOf($scheduledBackups) > 1 ) {
+						if(count($scheduledBackups) > 1 ) {
 							throw new ProcessingException("Error: Found multiple Backup Tasks for host: $hostname - Please specify which backup name to restore the latest snapshot for.");
 						}
 
@@ -485,7 +485,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Handle restoring of a snapshot
-		function handleRestore($snapshot, $path) {
+		public function handleRestore($snapshot, $path) {
 
 			global $config;
 
@@ -560,7 +560,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Handle actions for the backup context
-		function handleBackupActions($args) {
+		public function handleBackupActions($args) {
 
 			global $config;
 
@@ -651,7 +651,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 							$scheduledBackups = $host->getScheduledBackups();
 							$hostInfo = $host->getInfo();
 							echo("\n\tHostname: ".$hostInfo['hostname']."\n\n");
-							if(sizeOf($scheduledBackups) > 0 ) {
+							if(count($scheduledBackups) > 0 ) {
 								foreach($scheduledBackups as $scheduledBackup) {
 									$sbInfo = $scheduledBackup->getInfo();
 									echo("\t  Name: ".$sbInfo['name']."  Active: ".$sbInfo['active']."  Cron_Expression: ".$sbInfo['cron_expression']."\n");
@@ -685,14 +685,14 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 						$scheduledBackups = $host->getScheduledBackups();
 
-						if(sizeOf($scheduledBackups) == 0 ) {
+						if(count($scheduledBackups) == 0 ) {
 							throw new ProcessingException("Error: Could not find any backups for host: $hostname");
 						}
 
 						// If we have just 1 scheduledBackup, then feed it to
-						if(sizeOf($scheduledBackups) == 1 ) {
+						if(count($scheduledBackups) == 1 ) {
 							$scheduledBackup = $scheduledBackups[0];
-						} elseif( sizeOf($scheduledBackups) > 1 ) {
+						} elseif( count($scheduledBackups) > 1 ) {
 							throw new ProcessingException("Error: Found more than one Scheduled Backup for host: $hostname -- Please specify a Scheduled Backup name.");
 						}
 
@@ -824,7 +824,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 							$snapshots = array_merge($snapshots, $group->getAllSnapshotsNewestToOldest() ) ;
 						}
 
-						$snapCount = sizeOf($snapshots);
+						$snapCount = count($snapshots);
 
 						$performDel = false;
 
@@ -953,6 +953,33 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 								}
 							}
 
+							// Send Slack notifications if enabled
+							if($config['SLACK']['enabled'] == true) {
+								try {
+									global $XBM_AUTO_HOSTNAME;
+
+									$slackNotifier = new slackNotifier();
+									$slackNotifier->setLogStream($log);
+
+									if(get_class($e) == 'KillException') {
+										$slackNotifier->sendBackupAbortedNotification($scheduledBackup, $XBM_AUTO_HOSTNAME);
+									} else {
+										$slackNotifier->sendBackupFailureNotification($scheduledBackup, $e, $XBM_AUTO_HOSTNAME);
+									}
+
+								} catch ( Exception $slackException ) {
+									// If we can't get backup info for Slack, send generic notification
+									try {
+										$slackNotifier = new slackNotifier();
+										$slackNotifier->setLogStream($log);
+										$slackNotifier->sendGenericFailureNotification($e, $XBM_AUTO_HOSTNAME);
+									} catch ( Exception $finalException ) {
+										// Log but don't fail - Slack notifications are non-critical
+										$log->write(basename(__FILE__).": Error: Failed to send Slack notification: ".$finalException->getMessage(), XBM_LOG_ERROR);
+									}
+								}
+							}
+
 							die();
 						}
 
@@ -980,7 +1007,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Handle actions relating to hosts context
 		// Accepts an argv array from the command line
-		function handleHostActions($args) {
+		public function handleHostActions($args) {
 
 			// If we arent given any more parameters
 			if(!isSet($args[2]) ) {
@@ -1034,7 +1061,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 						echo("Active: ".$hostInfo['active']."  Staging_path: ".$hostInfo['staging_path']."  SSH Port: ".$hostInfo['ssh_port']."\n\n");
 					}
 
-					if(sizeOf($hosts) == 0 ) {
+					if(count($hosts) == 0 ) {
 						echo("	No hosts configured.\n\n");
 					}
 
@@ -1113,7 +1140,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 		// Handle actions relating to volumes
 		// Accepts an argv array from the command line
-		function handleVolumeActions($args) {
+		public function handleVolumeActions($args) {
 
 			// If we arent given any more parameters
 			if(!isSet($args[2]) ) {
@@ -1240,7 +1267,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Handler for upgrading the xbm database
-		function handleUpgradeAction() {
+		public function handleUpgradeAction() {
 
 			$schemaUpgrader = new schemaUpgrader();
 			$schemaUpgrader->setLogStream($this->log);
@@ -1258,7 +1285,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Handler for printing status information about running backup tasks
-		function handleStatusAction() {
+		public function handleStatusAction() {
 
 			$backupJobGetter = new backupJobGetter();
 			$backupJobGetter->setLogStream($this->log);
@@ -1288,7 +1315,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 									'PID' => $info['pid']
 								);
 			}
-			if(sizeOf($backupRows) > 0) {
+			if(count($backupRows) > 0) {
 				$textTable = new ArrayToTextTable($backupRows);
 				$textTable->showHeaders(true);
 				$tableOutput = $textTable->render(true);
@@ -1302,7 +1329,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 
 		// Handler for killing backup jobs
-		function handleKillAction($args) {
+		public function handleKillAction($args) {
 
 			if(!isSet($args[2]) || !is_numeric($args[2]) ) {
 				echo("Error: Expected a numeric Job ID as a parameter but did not get one.\n\n");

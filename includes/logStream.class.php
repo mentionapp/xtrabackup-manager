@@ -22,7 +22,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 	class logStream {
 
-		function __construct($filename, $verbose, $level = 0) {
+		public function __construct($filename, $verbose, $level = 0) {
 			$this->filename = $filename;
 			$this->verbose = $verbose;
 			$this->open = false;
@@ -35,11 +35,11 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 
-		function setLevel($level) {
+		public function setLevel($level) {
 			$this->level = $level;
 		}
 
-		function write($msg, $level) {
+		public function write($msg, $level) {
 	
 			// Only attempt to write if the message level is not lower than the logStream level
 			if( $level < $this->level ) {
@@ -71,14 +71,14 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 		}
 
 		// Open the logstream for writing...
-		function open() {
+		public function open() {
 
 			if($this->filename === false) {
 				$this->open = true;
 				return true;
 			}
 
-			if( ! ($this->fp = @fopen($this->filename, 'a') ) ) {
+			if( ! ($this->fp = fopen($this->filename, 'a') ) ) {
 				// Could not open logStream for writing.
 				throw new Exception('logStream->open: '."Error: Failed to open log file - $this->filename");
 			} else {

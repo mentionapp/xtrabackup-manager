@@ -80,6 +80,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	require('materializedSnapshotManager.class.php');
 	require('cliHandler.class.php');
 	require('exception.classes.php');
+	require('slackNotifier.class.php');
 	require('backupStrategy.class.php');
 	require('schemaUpgrader.class.php');
 	require('backupJob.class.php');

@@ -24,15 +24,15 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 	// Used to upgrade the database schema from one version to another
 	class schemaUpgrader {
 
-		function __construct() {
+		public function __construct() {
 			$this->log = false;
 		}
 
-		function setLogStream($log) {
+		public function setLogStream($log) {
 			$this->log = $log;
 		}
 
-		function upgrade() {
+		public function upgrade() {
 
 			// Look for running backups without checking schema version
 			$runningBackupGetter = new runningBackupGetter();
@@ -40,7 +40,7 @@ along with XtraBackup Manager.  If not, see <http://www.gnu.org/licenses/>.
 
 			// Get the runningbackups - this getter automatically removes stale entries, so it should only return truly running pids...
 			$runningBackups = $runningBackupGetter->getAll();
-			$backupCount = sizeOf($runningBackups);
+			$backupCount = count($runningBackups);
 
 			// If we find running backups, abort with error
 			if($backupCount > 0 ) {
